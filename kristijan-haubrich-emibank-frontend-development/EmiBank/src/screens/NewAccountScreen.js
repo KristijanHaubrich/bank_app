@@ -50,6 +50,13 @@ const NewAccountScreen = ({route,navigation}) =>{
        
     }
 
+    const validNumberOfDecimals = ()=> {
+        if(balance.toString().includes(".")){
+            return balance.toString().split('.')[1].length <= 2
+        }
+        return true
+    }
+
     const addAcc = async() => {
         if(accNum !== "" && accType !== "" && balance !== "" && currency !== "" && clientEmail !== undefined){
             const existResponse = await apiRequest(accessToken).get(`/accounts/checkAccount/${accNum}`)
@@ -58,8 +65,8 @@ const NewAccountScreen = ({route,navigation}) =>{
             }else if(accNum.length !== 15 || !accNum.startsWith("HR")){
                 createTwoButtonAlert("ERROR","Invalid account number")
             }
-            else if(!(!isNaN(+`${balance}`))){
-                createTwoButtonAlert("ERROR","Balance must be a number")    
+            else if(isNaN(+`${balance}`) || !validNumberOfDecimals()){
+                createTwoButtonAlert("ERROR","Invalid balance")    
             }else if(!checkCurrencySymbol()){
                 createTwoButtonAlert("ERROR","Currency doesn't exist") 
             }else{   

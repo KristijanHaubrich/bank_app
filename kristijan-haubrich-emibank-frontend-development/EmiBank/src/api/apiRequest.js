@@ -5,7 +5,7 @@ import { setAccessToken } from "../redux/reducers/tokenReducer";
 import checkTokenExpiration from "../utils/checkTokenExpiration";
 import logout from "../utils/logout";
 
-let baseUrl = "http://192.168.155.235:8080"
+let baseUrl = "http://192.168.69.101:8080"
 
 let  axiosInstance = axios.create({
     baseURL: `${baseUrl}/api`,

@@ -75,15 +75,15 @@ public class TransactionService {
         Optional<Account> toAccount = accountRepo.findByAccNum(transaction.getToAccNum());
 
         String amount = transaction.getAmount();
-        Double realAmount = Double.parseDouble(amount);
+        BigDecimal realAmount = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
 
         if(!fromAccount.isPresent()) return new IfResponseDto(false);
 
-        BigDecimal rounding = new BigDecimal(realAmount).setScale(2, RoundingMode.HALF_DOWN);
+        BigDecimal rounding = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
         Double transAmount = rounding.doubleValue();
-        System.out.println("transAmount");
-        System.out.println(BigDecimal.valueOf(transAmount).scale() > 2);
-        if(BigDecimal.valueOf(transAmount).scale() > 2) return new IfResponseDto(false);
+        if(BigDecimal.valueOf(transAmount).scale() > 2){
+            return new IfResponseDto(false);
+        }
 
 
         Double toAmount = transAmount;
@@ -91,35 +91,36 @@ public class TransactionService {
 
         if(!transaction.getCurrency().equals(fromAccount.get().getCurrency())){
             fromAmount = converter.exchangeRate(transaction.getCurrency(),fromAccount.get().getCurrency(),transAmount);
-            rounding = new BigDecimal(fromAmount).setScale(2, RoundingMode.HALF_DOWN);
+            rounding = new BigDecimal(String.valueOf(fromAmount)).setScale(2, RoundingMode.HALF_DOWN);
             fromAmount = rounding.doubleValue();
         }
-        if (BigDecimal.valueOf(fromAccount.get().getBalance()-fromAmount).scale() > 2)return new IfResponseDto(false);
-
 
         if(toAccount.isPresent()){
             if(!transaction.getCurrency().equals(toAccount.get().getCurrency())){
                 toAmount = converter.exchangeRate(transaction.getCurrency(),toAccount.get().getCurrency(),transAmount);
-                rounding = new BigDecimal(toAmount).setScale(2, RoundingMode.HALF_DOWN);
+                rounding = new BigDecimal(String.valueOf(toAmount)).setScale(2, RoundingMode.HALF_DOWN);
                 toAmount = rounding.doubleValue();
             }
-            if (BigDecimal.valueOf(toAccount.get().getBalance()+toAmount).scale() > 2)return new IfResponseDto(false);
         }
 
         if(isTransactionPossible(fromAccount.get(), fromAmount)){
-            fromAccount.get().setBalance(fromAccount.get().getBalance()-fromAmount);
+            rounding = new BigDecimal(String.valueOf(fromAccount.get().getBalance()-fromAmount)).setScale(2,RoundingMode.HALF_DOWN);
+            if (BigDecimal.valueOf(rounding.doubleValue()).scale() > 2){
+                return new IfResponseDto(false);
+            }
+            fromAccount.get().setBalance(rounding.doubleValue());
 
             if(checkIfCreditCard(fromAccount.get().getAccNum())){
                 Optional<CreditCard> fromCard = creditCardRepo.findByCardNum(fromAccount.get().getCreditCard().getCardNum());
                 if (fromCard.isPresent()){
-                    fromCard.get().setBalance(fromAccount.get().getBalance()-fromAmount);
+                    fromCard.get().setBalance(rounding.doubleValue());
                 }
             }
 
             Transaction transactionFromAccount = Transaction.builder()
                     .account(fromAccount.get())
                     .transactionType(transaction.getTransactionType())
-                    .amount(realAmount)
+                    .amount(realAmount.doubleValue())
                     .currency(transaction.getCurrency())
                     .toAccNum(transaction.getToAccNum())
                     .date(date)
@@ -130,19 +131,23 @@ public class TransactionService {
             transactionRepo.save(transactionFromAccount);
 
             if(toAccount.isPresent()){
-                toAccount.get().setBalance(toAccount.get().getBalance()+toAmount);
+                rounding = new BigDecimal(String.valueOf(toAccount.get().getBalance()+toAmount)).setScale(2,RoundingMode.HALF_DOWN);
+                if (BigDecimal.valueOf(rounding.doubleValue()).scale() > 2){
+                    return new IfResponseDto(false);
+                }
+                toAccount.get().setBalance(rounding.doubleValue());
 
                 if(checkIfCreditCard(toAccount.get().getAccNum())){
                     Optional<CreditCard> toCard = creditCardRepo.findByCardNum(toAccount.get().getCreditCard().getCardNum());
                     if (toCard.isPresent()){
-                        toCard.get().setBalance(toAccount.get().getBalance()+toAmount);
+                        toCard.get().setBalance(rounding.doubleValue());
                     }
                 }
 
                 Transaction transactionToAccount = Transaction.builder()
                         .account(toAccount.get())
                         .transactionType(transaction.getTransactionType())
-                        .amount(realAmount)
+                        .amount(realAmount.doubleValue())
                         .date(date)
                         .currency(transaction.getCurrency())
                         .toAccNum(transaction.getToAccNum())
@@ -166,24 +171,27 @@ public class TransactionService {
         if(!toAccount.isPresent()) return new IfResponseDto(false);
 
         String amount = transaction.getAmount();
-        Double realAmount = Double.parseDouble(amount);
+        BigDecimal realAmount = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
 
-        BigDecimal rounding = new BigDecimal(realAmount).setScale(2, RoundingMode.HALF_DOWN);
+        BigDecimal rounding = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
         Double transAmount = rounding.doubleValue();
-        if(BigDecimal.valueOf(toAccount.get().getBalance() + transAmount).scale() > 2 || BigDecimal.valueOf(toAccount.get().getBalance() - transAmount).scale() > 2 ) return new IfResponseDto(false);
 
         if (transaction.getTransactionType().equals("top up balance")){
-            toAccount.get().setBalance(toAccount.get().getBalance() + transAmount);
+            rounding = new BigDecimal(String.valueOf(toAccount.get().getBalance() + transAmount)).setScale(2,RoundingMode.HALF_DOWN);
+            if (BigDecimal.valueOf(rounding.doubleValue()).scale() > 2){
+                return new IfResponseDto(false);
+            }
+            toAccount.get().setBalance(rounding.doubleValue());
             if(toAccount.get().getCreditCard() != null){
                 Optional<CreditCard> toCard = creditCardRepo.findByCardNum(toAccount.get().getCreditCard().getCardNum());
                 if (toCard.isPresent()){
-                    toCard.get().setBalance(toCard.get().getBalance() + transAmount);
+                    toCard.get().setBalance(rounding.doubleValue());
                 }
             }
             Transaction transactionToAccount = Transaction.builder()
                     .account(toAccount.get())
                     .transactionType(transaction.getTransactionType())
-                    .amount(realAmount)
+                    .amount(realAmount.doubleValue())
                     .currency(transaction.getCurrency())
                     .toAccNum(transaction.getToAccNum())
                     .date(date)
@@ -195,17 +203,21 @@ public class TransactionService {
         }
 
         if (transaction.getTransactionType().equals("withdrawal") && isTransactionPossible(toAccount.get(),transAmount)){
-            toAccount.get().setBalance(toAccount.get().getBalance() - transAmount);
+            rounding = new BigDecimal(String.valueOf(toAccount.get().getBalance() - transAmount)).setScale(2,RoundingMode.HALF_DOWN);
+            if (BigDecimal.valueOf(rounding.doubleValue()).scale() > 2){
+                return new IfResponseDto(false);
+            }
+            toAccount.get().setBalance(rounding.doubleValue());
             if(toAccount.get().getCreditCard() != null){
                 Optional<CreditCard> toCard = creditCardRepo.findByCardNum(toAccount.get().getCreditCard().getCardNum());
                 if(toCard.get().getCardLimit() <= transAmount){
-                    toCard.get().setBalance(toCard.get().getBalance() - transAmount);
+                    toCard.get().setBalance(rounding.doubleValue());
                 }
             }
             Transaction transactionToAccount = Transaction.builder()
                     .account(toAccount.get())
                     .transactionType(transaction.getTransactionType())
-                    .amount(realAmount)
+                    .amount(realAmount.doubleValue())
                     .currency(transaction.getCurrency())
                     .toAccNum(transaction.getToAccNum())
                     .date(date)

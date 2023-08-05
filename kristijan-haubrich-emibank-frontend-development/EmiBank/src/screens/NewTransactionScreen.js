@@ -7,7 +7,9 @@ import createTwoButtonAlert from "../utils/createTwoButtonAlert"
 import currencyRequest from "../api/currencyRequest"
 import { Dropdown } from "react-native-element-dropdown"
 import { useEffect } from "react"
+import LoadingScreen from "./LoadingScreen"
 import _ from "lodash";
+
 
 const NewTransactionScreen = ({route,navigation}) =>{
     const isBankManager = useSelector(state=>state.userType.isBankManager)
@@ -49,11 +51,18 @@ const NewTransactionScreen = ({route,navigation}) =>{
         return symbols.includes(currency)
     }
 
+    const validNumberOfDecimals = () => {
+        if(amount.toString().includes(".")){
+            return amount.toString().split('.')[1].length <= 2
+        }
+        return true
+    }
+
     const doTransaction = async () => {
         if(transactionType === "deposit"){
             if(toAccNum.length !== 15 || !toAccNum.startsWith("HR") || toAccNum === fromAccNum){
                 createTwoButtonAlert("ERROR","Invalid account number")
-            }else if(isNaN(+`${amount}`) || amount <= 0){
+            }else if(isNaN(+`${amount}`) || amount <= 0 || !validNumberOfDecimals()){
                 createTwoButtonAlert("ERROR","Invalid amount")
             }else if(!checkCurrencySymbol()){
                 createTwoButtonAlert("ERROR","Currency doesn't exist")
@@ -81,7 +90,7 @@ const NewTransactionScreen = ({route,navigation}) =>{
                 }
             }
         }else if(transactionType === "top up balance"){
-            if(isNaN(+`${amount}`) || amount <= 0){
+            if(isNaN(+`${amount}`) || amount <= 0 || !validNumberOfDecimals()){
                 createTwoButtonAlert("ERROR","Invalid amount")
             }else{
                 const response = await apiRequest(accessToken).post("/transactions/executeInternalAccountTransaction",{
@@ -102,7 +111,7 @@ const NewTransactionScreen = ({route,navigation}) =>{
                 }
             }
         }else{
-            if(isNaN(+`${amount}`) || amount <= 0){
+            if(isNaN(+`${amount}`) || amount <= 0 || !validNumberOfDecimals()){
                 createTwoButtonAlert("ERROR","Invalid amount")
             }else{
                 const response = await apiRequest(accessToken).post("/transactions/executeInternalAccountTransaction",{
@@ -205,7 +214,11 @@ const NewTransactionScreen = ({route,navigation}) =>{
         </ScrollView>
         )
            
-    }else if(transactionType === "deposit" && currencyData){
+    }else if(transactionType === "deposit" && !currencyData){
+        return(
+            <LoadingScreen title = "Transactions" />
+        )
+    } else {
         return(
             <ScrollView>
             <Text style={styles.accountNameBanner}>New Transaction</Text>
