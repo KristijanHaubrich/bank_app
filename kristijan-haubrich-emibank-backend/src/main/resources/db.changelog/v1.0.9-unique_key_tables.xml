@@ -1,0 +1,76 @@
+
+
+<databaseChangeLog
+xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+<changeSet id="unique_key_constraints" author="superuser" context="emibank">
+
+    <addUniqueConstraint
+            columnNames="acc_num"
+            constraintName="acc_num_account"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="accounts"
+    />
+
+    <addUniqueConstraint
+            columnNames="email"
+            constraintName="email_users"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="users"
+    />
+
+    <addUniqueConstraint
+            columnNames="password"
+            constraintName="password_users"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="users"
+    />
+
+
+    <addUniqueConstraint
+            columnNames="card_num"
+            constraintName="card_num_credit_card"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="credit_cards"
+    />
+
+    <addUniqueConstraint
+            columnNames="name"
+            constraintName="name_role"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="roles"
+    />
+
+    <addUniqueConstraint
+            columnNames="name"
+            constraintName="name_permission"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="permissions"
+    />
+
+</changeSet>
+
+
+
+</databaseChangeLog>

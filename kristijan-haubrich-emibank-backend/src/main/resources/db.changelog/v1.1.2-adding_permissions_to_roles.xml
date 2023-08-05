@@ -1,0 +1,275 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="adding_permissions_to_roles" author="superuser" context="emibank">
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="1"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="1"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="2"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="2"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="3"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="3"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="4"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="4"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="4"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="5"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="5"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="6"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="6"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="7"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="7"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="8"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="8"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="8"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="9"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="9"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="9"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="10"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="10"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="11"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="11"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="12"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="12"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="12"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="13"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="13"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="14"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="14"/>
+        </insert>
+
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="15"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="15"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="15"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="16"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="16"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="16"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="17"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="17"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="17"/>
+        </insert>
+
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="18"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id" value="18"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="3" />
+            <column name="permission_id" value="18"/>
+        </insert>
+
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="1" />
+            <column name="permission_id" value="19"/>
+        </insert>
+
+        <insert tableName="permissions_roles">
+            <column name="roles_id" value="2" />
+            <column name="permission_id"  value="19"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

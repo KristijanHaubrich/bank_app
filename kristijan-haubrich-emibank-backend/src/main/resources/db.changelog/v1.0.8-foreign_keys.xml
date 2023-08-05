@@ -1,0 +1,100 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="foreign_keys_table" author="superuser" context="emibank">
+        <addForeignKeyConstraint  baseColumnNames="client_id"
+                                  baseTableName="accounts"
+                                  constraintName="fk_account_client"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="clients"
+        />
+
+        <addForeignKeyConstraint  baseColumnNames="bank_manager_id"
+                                  baseTableName="clients"
+                                  constraintName="fk_client_bank_manager"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="bank_managers"
+        />
+
+        <addForeignKeyConstraint  baseColumnNames="client_id"
+                                  baseTableName="credit_cards"
+                                  constraintName="fk_creditCard_client"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="clients"
+        />
+
+        <addForeignKeyConstraint  baseColumnNames="role_id"
+                                  baseTableName="users"
+                                  constraintName="fk_user_roles"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="roles"
+        />
+
+        <addForeignKeyConstraint  baseColumnNames="id"
+                                  baseTableName="clients"
+                                  constraintName="fk_client_user"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="users"
+        />
+
+        <addForeignKeyConstraint  baseColumnNames="id"
+                                  baseTableName="bank_managers"
+                                  constraintName="fk_bank_manager_user"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="users"
+        />
+
+
+        <addForeignKeyConstraint  baseColumnNames="roles_id"
+                                  baseTableName="permissions_roles"
+                                  constraintName="fk_permissions_roles_role"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="roles"
+        />
+
+        <addForeignKeyConstraint  baseColumnNames="permission_id"
+                                  baseTableName="permissions_roles"
+                                  constraintName="fk_permissions_roles_permission"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="permissions"
+        />
+    </changeSet>
+
+
+</databaseChangeLog>
+

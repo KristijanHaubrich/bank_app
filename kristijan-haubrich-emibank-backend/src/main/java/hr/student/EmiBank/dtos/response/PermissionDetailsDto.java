@@ -1,0 +1,13 @@
+package hr.student.EmiBank.dtos.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+public class PermissionDetailsDto {
+    String name;
+    List<String> roles;
+}

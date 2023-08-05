@@ -1,0 +1,113 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="adding_permissions" author="superuser" context="emibank">
+        <insert tableName="permissions">
+            <column name="id" value="1" />
+            <column name="name" value="GET_BANK_MANAGER_DETAILS"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="2" />
+            <column name="name" value="CHANGE_BANK_MANAGER_PASSWORD"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="3" />
+            <column name="name" value="CHANGE_BANK_MANAGER_EMAIL"/>
+        </insert>
+
+
+
+        <insert tableName="permissions">
+            <column name="id" value="4" />
+            <column name="name" value="GET_CLIENT_DETAILS"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="5" />
+            <column name="name" value="CHANGE_CLIENT_PASSWORD"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="6" />
+            <column name="name" value="CHANGE_CLIENT_EMAIL"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="7" />
+            <column name="name" value="ADD_NEW_CLIENT"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="8" />
+            <column name="name" value="DELETE_CLIENT"/>
+        </insert>
+
+
+
+        <insert tableName="permissions">
+            <column name="id" value="9" />
+            <column name="name" value="GET_ACCOUNT_DETAILS"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="10" />
+            <column name="name" value="CREATE_ACCOUNT"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="11" />
+            <column name="name" value="DELETE_ACCOUNT"/>
+        </insert>
+
+
+
+        <insert tableName="permissions">
+            <column name="id" value="12" />
+            <column name="name" value="GET_CREDIT_CARD_DETAILS"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="13" />
+            <column name="name" value="CREATE_CREDIT_CARD"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="14" />
+            <column name="name" value="DELETE_CREDIT_CARD"/>
+        </insert>
+
+
+
+        <insert tableName="permissions">
+            <column name="id" value="15" />
+            <column name="name" value="GET_TRANSACTION"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="16" />
+            <column name="name" value="NEW_TRANSACTION"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="17" />
+            <column name="name" value="BETWEEN_ACC_TRANSACTION"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="18" />
+            <column name="name" value="INTERNAL_ACC_TRANSACTION"/>
+        </insert>
+
+        <insert tableName="permissions">
+            <column name="id" value="19" />
+            <column name="name" value="DELETE_TRANSACTION"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

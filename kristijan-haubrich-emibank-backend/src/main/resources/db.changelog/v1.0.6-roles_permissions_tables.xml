@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="permissions_roles" author="superuser" context="emibank">
+        <createTable tableName="roles">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+
+            </column>
+
+            <column name="name" type="varchar">
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+
+        <createTable tableName="permissions">
+
+        <column name="id" type="bigint" autoIncrement="true">
+            <constraints nullable="false" primaryKey="true"/>
+
+        </column>
+
+        <column name="name" type="varchar">
+            <constraints nullable="false" />
+        </column>
+
+        </createTable>
+
+        <createTable tableName="permissions_roles">
+
+            <column name="roles_id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="permission_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+    </changeSet>
+
+
+
+</databaseChangeLog>
