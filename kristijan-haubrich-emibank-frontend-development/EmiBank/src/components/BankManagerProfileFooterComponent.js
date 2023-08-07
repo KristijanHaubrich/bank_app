@@ -19,7 +19,7 @@ const BankManagerProfileFooterComponent = ({email,setAllClients,changeData}) => 
         }
     }  
 
-    const askForProceedingTransaction = () => {
+    const askForDataRefresh = () => {
         Alert.alert('REFRESH', 'Refresh data?', [
             {
               text: 'Cancel',
@@ -33,7 +33,7 @@ const BankManagerProfileFooterComponent = ({email,setAllClients,changeData}) => 
         <View>
              <TouchableOpacity
                 style={styles.logoutButtonContainer}
-                onPress={askForProceedingTransaction}
+                onPress={askForDataRefresh}
             >
                 <Text style={styles.logoutButtonText}>Refresh data</Text>
             </TouchableOpacity>   

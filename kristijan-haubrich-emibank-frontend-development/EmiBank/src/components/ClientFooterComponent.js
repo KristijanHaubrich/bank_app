@@ -31,6 +31,16 @@ const deleteAccount = () => {
           ]);
 }
 
+const askForDataRefresh = () => {
+    Alert.alert('REFRESH', 'Refresh data?', [
+        {
+          text: 'Cancel',
+        },
+        {text: 'YES', onPress:() => {getData()} },
+      ]);
+   
+}
+
 const getData = async() => {
     const response = await apiRequest(accessToken).get(`/clients/${clientEmail}`)
     if(response?.data){
@@ -44,7 +54,7 @@ const getData = async() => {
     if(!isBankManager){
         return(
             <View>
-                <TouchableOpacity style = {styles.buttonContainer} onPress={getData} >
+                <TouchableOpacity style = {styles.buttonContainer} onPress={askForDataRefresh} >
                     <Text style={styles.buttonText}>Refresh Data</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style = {styles.buttonContainer} onPress={() => {logout({dispatch})}}>
