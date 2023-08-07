@@ -63,6 +63,13 @@ public class TransactionService {
         }
         return false;
     }
+
+    @Transactional
+    public Boolean isAmountToBigForTransaction(Double amount,String currency) throws Exception{
+        if(!currency.equals("USD")) return new ExchangeRate().exchangeRate(currency,"USD",amount) > 10000;
+        return amount > 10000;
+    }
+
     @Transactional
     public IfResponseDto executeTransactionBetweenAccounts(TransactionRequestDto transaction)throws Exception {
 
@@ -77,7 +84,7 @@ public class TransactionService {
         String amount = transaction.getAmount();
         BigDecimal realAmount = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
 
-        if(!fromAccount.isPresent()) return new IfResponseDto(false);
+        if(!fromAccount.isPresent() || isAmountToBigForTransaction(realAmount.doubleValue(), transaction.getCurrency())) return new IfResponseDto(false);
 
         BigDecimal rounding = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
         Double transAmount = rounding.doubleValue();
@@ -168,13 +175,13 @@ public class TransactionService {
 
         Optional<Account> toAccount = accountRepo.findByAccNum(transaction.getToAccNum());
 
-        if(!toAccount.isPresent()) return new IfResponseDto(false);
-
         String amount = transaction.getAmount();
         BigDecimal realAmount = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
 
         BigDecimal rounding = new BigDecimal(amount).setScale(2, RoundingMode.HALF_DOWN);
         Double transAmount = rounding.doubleValue();
+
+        if(!toAccount.isPresent() || isAmountToBigForTransaction(transAmount,transaction.getCurrency())) return new IfResponseDto(false);
 
         if (transaction.getTransactionType().equals("top up balance")){
             rounding = new BigDecimal(String.valueOf(toAccount.get().getBalance() + transAmount)).setScale(2,RoundingMode.HALF_DOWN);
