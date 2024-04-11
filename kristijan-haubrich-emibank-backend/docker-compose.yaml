@@ -10,7 +10,7 @@ services:
       - "5432:5432"
 
   api:
-    build: .
+    image: kristijanhaubrichoptiva/emibank:emibank_v.1.1
     ports:
       - "8080:8080"
     environment:
