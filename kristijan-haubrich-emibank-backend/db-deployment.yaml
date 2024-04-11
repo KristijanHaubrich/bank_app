@@ -19,7 +19,7 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: emi_bank_db
+              value: emibank_db
             - name: POSTGRES_USER
               value: postgres
             - name: POSTGRES_PASSWORD
