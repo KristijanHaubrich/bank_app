@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: emibank-api
-          image: kristijanhaubrichoptiva/emibank:emibank_v.1.1
+          image: kristijanhaubrichoptiva/emibank:1.2
           ports:
             - containerPort: 8080
           env:

@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
 
   api:
     image: kristijanhaubrichoptiva/emibank:emibank_v.1.1
@@ -19,3 +21,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
     depends_on:
       - postgres
+
+volumes:
+  dbdata:
