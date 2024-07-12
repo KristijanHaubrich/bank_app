@@ -3,9 +3,11 @@ kind: Service
 metadata:
   name: emibank-db
 spec:
+  type: NodePort
   selector:
     app: emibank-db
   ports:
     - protocol: TCP
       port: 5432
       targetPort: 5432
+      nodePort: 30003
