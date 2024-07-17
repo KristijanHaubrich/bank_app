@@ -33,6 +33,15 @@ spec:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
                   name: postgres-secret
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  pg_isready -U $(POSTGRES_USER) -d $(POSTGRES_DB)
+            initialDelaySeconds: 60
+            periodSeconds: 30
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data

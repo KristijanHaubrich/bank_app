@@ -1,6 +1,6 @@
 apiVersion: v2
 name: emibank
-appVersion: "1.0"
-description: A Helm chart for Emibank 1.0
+appVersion: "1.3"
+description: A Helm chart for Emibank 1.3
 version: 0.1.4
 type: application

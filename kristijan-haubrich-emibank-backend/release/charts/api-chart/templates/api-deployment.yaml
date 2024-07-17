@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: emibank-api
-          image: kristijanhaubrichoptiva/emibank:1.2
+          image: kristijanhaubrichoptiva/emibank:1.3
           ports:
             - containerPort: 8080
           env:
@@ -33,3 +33,9 @@ spec:
                 secretKeyRef:
                   key: SPRING_DATASOURCE_PASSWORD
                   name: api-secret
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health
+            initialDelaySeconds: 60
+            periodSeconds: 10
