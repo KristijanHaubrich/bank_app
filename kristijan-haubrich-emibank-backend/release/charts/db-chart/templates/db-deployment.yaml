@@ -38,14 +38,14 @@ spec:
               port: 5432
             initialDelaySeconds: 60
             periodSeconds: 30
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
           readinessProbe:
             tcpSocket:
               port: 5432
             initialDelaySeconds: 10
             periodSeconds: 5
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
